@@ -6,14 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.noteapp.R
+import com.example.noteapp.databinding.FragmentDetailBinding
 
 class DetailFragment : Fragment() {
 
+    private lateinit var binding: FragmentDetailBinding
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = FragmentDetailBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
 }
