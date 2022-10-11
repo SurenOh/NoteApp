@@ -5,6 +5,7 @@ import com.example.noteapp.App
 import com.example.noteapp.database.Database
 import com.example.noteapp.repository.NoteRepository
 import com.example.noteapp.repository.NoteRepositoryImpl
+import com.example.noteapp.screens.detail.DetailViewModel
 import com.example.noteapp.screens.home.HomeViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
@@ -30,4 +31,5 @@ val applicationModule = module {
 
     //ViewModels
     viewModel { HomeViewModel(get()) }
+    viewModel { DetailViewModel(get()) }
 }

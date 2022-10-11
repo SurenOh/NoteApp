@@ -11,4 +11,12 @@ class NoteRepositoryImpl(private val db: Database): NoteRepository {
         db.noteDao().insert(note)
     }
 
+    override fun update(note: Note) {
+        db.noteDao().update(note)
+    }
+
+    override fun delete(note: Note) {
+        db.noteDao().delete(note)
+    }
+
 }

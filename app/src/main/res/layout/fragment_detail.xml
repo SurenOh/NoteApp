@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".screens.detail.DetailFragment">
 
-    <TextView
+    <EditText
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:gravity="center"
         android:textColor="@color/black"
+        android:background="@android:color/transparent"
         android:textStyle="bold"/>
 
     <ScrollView
@@ -26,11 +27,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title"
         android:layout_margin="10dp">
-        <TextView
+        <EditText
+            android:id="@+id/description"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:text="Description"
+            android:background="@android:color/transparent"
             android:textColor="@color/black"/>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

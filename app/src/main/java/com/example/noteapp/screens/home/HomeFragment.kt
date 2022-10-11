@@ -1,12 +1,12 @@
 package com.example.noteapp.screens.home
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.noteapp.R
 import com.example.noteapp.databinding.FragmentHomeBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -43,6 +43,11 @@ class HomeFragment : Fragment() {
         binding.homeRecycler.apply {
             adapter = this@HomeFragment.adapter
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        }
+        adapter.onClickNote = {note ->
+            val bundle = Bundle()
+            bundle.putSerializable("note", note)
+            findNavController().navigate(R.id.action_homeFragment_to_detailFragment, bundle)
         }
     }
 
