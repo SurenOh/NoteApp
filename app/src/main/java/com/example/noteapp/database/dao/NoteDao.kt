@@ -2,20 +2,20 @@ package com.example.noteapp.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.noteapp.database.entity.Note
+import com.example.noteapp.database.entity.NoteEntity
 
 @Dao
 interface NoteDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(item: Note)
+    fun insert(item: NoteEntity)
 
     @Delete
-    fun delete(item: Note)
+    fun delete(item: NoteEntity)
 
     @Update
-    fun update(item: Note)
+    fun update(item: NoteEntity)
 
-    @Query("SELECT * FROM NOTE ORDER BY id DESC")
-    fun getAllNotes(): LiveData<List<Note>>
+    @Query("SELECT * FROM NoteEntity ORDER BY id DESC")
+    fun getAllNotes(): LiveData<List<NoteEntity>>
 }

@@ -2,12 +2,15 @@ package com.example.noteapp.screens.home
 
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.noteapp.R
 import com.example.noteapp.databinding.FragmentHomeBinding
+import com.example.noteapp.util.swipe.SwipeToDelete
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
@@ -29,10 +32,11 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupAdapter()
         setupObservers()
+        setupSwipeAction()
     }
 
-    private fun setupObservers () {
-        viewModel.getAllNotes().observe(viewLifecycleOwner) {notes ->
+    private fun setupObservers() {
+        viewModel.getAllNotes().observe(viewLifecycleOwner) { notes ->
             adapter.setAdapterNotes(notes)
             binding.homeRecycler.isVisible = adapter.notes.isNotEmpty()
         }
@@ -44,11 +48,22 @@ class HomeFragment : Fragment() {
             adapter = this@HomeFragment.adapter
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         }
-        adapter.onClickNote = {note ->
+        adapter.onClickNote = { note ->
             val bundle = Bundle()
             bundle.putSerializable("note", note)
             findNavController().navigate(R.id.action_homeFragment_to_detailFragment, bundle)
         }
+    }
+
+    private fun setupSwipeAction() {
+        val swipeToDeleteCallBack = object : SwipeToDelete() {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                viewModel.deleteNote(adapter.notes[position])
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallBack)
+        itemTouchHelper.attachToRecyclerView(binding.homeRecycler)
     }
 
 }

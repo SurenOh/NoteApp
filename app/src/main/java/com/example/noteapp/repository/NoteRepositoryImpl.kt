@@ -1,22 +1,26 @@
 package com.example.noteapp.repository
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import com.example.noteapp.database.Database
-import com.example.noteapp.database.entity.Note
+import com.example.noteapp.mappers.NoteMapper
+import com.example.noteapp.model.NoteModel
 
-class NoteRepositoryImpl(private val db: Database): NoteRepository {
+class NoteRepositoryImpl(private val db: Database, private val mapper: NoteMapper): NoteRepository {
 
-    override fun getAllNotes() = db.noteDao().getAllNotes()
+    override fun getAllNotes(): LiveData<List<NoteModel>> =
+        Transformations.map(db.noteDao().getAllNotes()) { mapper.listMapFromEntity(it) }
 
-    override fun insert(note: Note) {
-        db.noteDao().insert(note)
+    override fun insert(noteEntity: NoteModel) {
+        db.noteDao().insert(mapper.mapToEntity(noteEntity))
     }
 
-    override fun update(note: Note) {
-        db.noteDao().update(note)
+    override fun update(noteEntity: NoteModel) {
+        db.noteDao().update(mapper.mapToEntity(noteEntity))
     }
 
-    override fun delete(note: Note) {
-        db.noteDao().delete(note)
+    override fun delete(noteEntity: NoteModel) {
+        db.noteDao().delete(mapper.mapToEntity(noteEntity))
     }
 
 }

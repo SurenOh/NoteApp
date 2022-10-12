@@ -5,11 +5,12 @@ import androidx.room.PrimaryKey
 import java.io.Serializable
 
 @Entity
-data class Note(
+data class NoteEntity(
     var title: String,
     var description: String,
     var changeDate: Long,
-): Serializable {
     @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
+    var id: Int = 0,
+) {
+
 }

@@ -1,13 +1,13 @@
 package com.example.noteapp.repository
 
 import androidx.lifecycle.LiveData
-import com.example.noteapp.database.entity.Note
+import com.example.noteapp.model.NoteModel
 
 interface NoteRepository {
 
-    fun getAllNotes(): LiveData<List<Note>>
-    fun insert(note: Note)
-    fun update(note: Note)
-    fun delete(note: Note)
+    fun getAllNotes(): LiveData<List<NoteModel>>
+    fun insert(noteEntity: NoteModel)
+    fun update(noteEntity: NoteModel)
+    fun delete(noteEntity: NoteModel)
 
 }
