@@ -4,7 +4,7 @@ import com.example.noteapp.database.entity.NoteEntity
 import com.example.noteapp.model.NoteModel
 import com.example.noteapp.util.mapper.Mapper
 
-class NoteMapper: Mapper<NoteEntity, NoteModel> {
+class NoteModelMapper: Mapper<NoteEntity, NoteModel> {
 
     override fun mapFromEntity(entity: NoteEntity) = NoteModel (
         title = entity.title,

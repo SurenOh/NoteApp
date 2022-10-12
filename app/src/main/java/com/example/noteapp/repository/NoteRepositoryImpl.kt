@@ -3,24 +3,33 @@ package com.example.noteapp.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.example.noteapp.database.Database
-import com.example.noteapp.mappers.NoteMapper
+import com.example.noteapp.database.entity.NoteEntity
+import com.example.noteapp.mappers.NoteDTOMapper
+import com.example.noteapp.mappers.NoteModelMapper
 import com.example.noteapp.model.NoteModel
+import com.example.noteapp.server.Server
 
-class NoteRepositoryImpl(private val db: Database, private val mapper: NoteMapper): NoteRepository {
+class NoteRepositoryImpl(private val db: Database, private val modelMapper: NoteModelMapper, private val dtoMapper: NoteDTOMapper): NoteRepository {
 
     override fun getAllNotes(): LiveData<List<NoteModel>> =
-        Transformations.map(db.noteDao().getAllNotes()) { mapper.listMapFromEntity(it) }
+        Transformations.map(db.noteDao().getAllNotes()) { modelMapper.listMapFromEntity(it) }
 
     override fun insert(noteEntity: NoteModel) {
-        db.noteDao().insert(mapper.mapToEntity(noteEntity))
+        db.noteDao().insert(modelMapper.mapToEntity(noteEntity))
     }
 
     override fun update(noteEntity: NoteModel) {
-        db.noteDao().update(mapper.mapToEntity(noteEntity))
+        db.noteDao().update(modelMapper.mapToEntity(noteEntity))
     }
 
     override fun delete(noteEntity: NoteModel) {
-        db.noteDao().delete(mapper.mapToEntity(noteEntity))
+        db.noteDao().delete(modelMapper.mapToEntity(noteEntity))
+    }
+
+
+
+    override fun getManagerList(): List<NoteEntity> {
+        return dtoMapper.listMapToEntity(Server.getManagerList())
     }
 
 }

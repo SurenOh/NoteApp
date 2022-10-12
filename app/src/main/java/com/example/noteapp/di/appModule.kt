@@ -3,7 +3,8 @@ package com.example.noteapp.di
 import androidx.room.Room
 import com.example.noteapp.App
 import com.example.noteapp.database.Database
-import com.example.noteapp.mappers.NoteMapper
+import com.example.noteapp.mappers.NoteDTOMapper
+import com.example.noteapp.mappers.NoteModelMapper
 import com.example.noteapp.repository.NoteRepository
 import com.example.noteapp.repository.NoteRepositoryImpl
 import com.example.noteapp.screens.detail.DetailViewModel
@@ -28,10 +29,11 @@ val applicationModule = module {
     }
 
     //Mappers
-    single { NoteMapper() }
+    single { NoteModelMapper() }
+    single { NoteDTOMapper() }
 
     //Repositories
-    single<NoteRepository> { NoteRepositoryImpl(get(), get()) }
+    single<NoteRepository> { NoteRepositoryImpl(get(), get(), get()) }
 
     //ViewModels
     viewModel { HomeViewModel(get()) }
