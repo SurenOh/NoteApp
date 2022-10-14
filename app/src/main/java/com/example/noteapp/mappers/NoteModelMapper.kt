@@ -1,7 +1,7 @@
 package com.example.noteapp.mappers
 
 import com.example.noteapp.database.entity.NoteEntity
-import com.example.noteapp.model.NoteModel
+import com.example.noteapp.models.NoteModel
 import com.example.noteapp.util.mapper.Mapper
 
 class NoteModelMapper: Mapper<NoteEntity, NoteModel> {

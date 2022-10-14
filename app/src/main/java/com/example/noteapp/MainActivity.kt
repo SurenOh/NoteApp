@@ -1,9 +1,11 @@
 package com.example.noteapp
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.noteapp.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
@@ -30,5 +32,12 @@ class MainActivity : AppCompatActivity() {
         val snackBar = Snackbar.make(view, "Нет интернета", Snackbar.LENGTH_LONG)
         snackBar.setBackgroundTint(ContextCompat.getColor(this, R.color.teal_200))
         snackBar.show()
+    }
+
+    fun hideKeyboard() {
+        val imm: InputMethodManager = this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        var view: View? = this.currentFocus
+        if (view == null) view = View(this)
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }

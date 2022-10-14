@@ -1,7 +1,7 @@
 package com.example.noteapp.screens.detail
 
 import androidx.lifecycle.ViewModel
-import com.example.noteapp.model.NoteModel
+import com.example.noteapp.models.NoteModel
 import com.example.noteapp.repository.NoteRepository
 import java.util.*
 

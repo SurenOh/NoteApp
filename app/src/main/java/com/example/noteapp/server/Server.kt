@@ -6,5 +6,4 @@ object Server {
     private val list = mutableListOf<NoteDTO>()
 
     fun getManagerList() = list
-
 }

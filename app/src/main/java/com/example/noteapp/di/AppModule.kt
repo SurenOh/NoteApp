@@ -16,9 +16,9 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val applicationModule = module {
-    single {androidApplication() as App }
+    single { androidApplication() as App }
 
-    //Database
+    // Database
     single {
         Room.databaseBuilder(
             androidContext(),
@@ -29,14 +29,14 @@ val applicationModule = module {
             .build()
     }
 
-    //Mappers
+    // Mappers
     single { NoteModelMapper() }
     single { NoteDTOMapper() }
 
-    //Repositories
+    // Repositories
     single<NoteRepository> { NoteRepositoryImpl(get(), get(), get()) }
 
-    //ViewModels
+    // ViewModels
     viewModel { HomeViewModel(get()) }
     viewModel { DetailViewModel(get()) }
     viewModel { MainViewModel(get()) }
