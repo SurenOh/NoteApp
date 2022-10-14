@@ -13,11 +13,7 @@ class HomeViewModel(private val noteRepository: NoteRepository) : ViewModel() {
     private val DEFAULT_TITLE = "Новая заметка"
     val notes = MutableLiveData<List<NoteModel>>()
 
-    fun getAllNotes() = {
-        viewModelScope.launch(Dispatchers.IO) {
-            notes.value = noteRepository.getAllNotes()
-        }
-    }
+    fun getAllNotes() { viewModelScope.launch(Dispatchers.IO) { notes.value = noteRepository.getAllNotes() } }
 
     fun addNewNote() {
         noteRepository.insert(NoteModel(DEFAULT_TITLE, "", Date().time))
