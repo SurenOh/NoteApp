@@ -5,10 +5,10 @@ import com.example.noteapp.model.NoteModel
 import com.example.noteapp.repository.NoteRepository
 import java.util.*
 
-class HomeViewModel(private val noteRepository: NoteRepository): ViewModel() {
+class HomeViewModel(private val noteRepository: NoteRepository) : ViewModel() {
     private val DEFAULT_TITLE = "Новая заметка"
 
-    fun getAllNotes () = noteRepository.getAllNotes()
+    fun getAllNotes() = noteRepository.getAllNotes()
 
     fun addNewNote() {
         noteRepository.insert(NoteModel(DEFAULT_TITLE, "", Date().time))

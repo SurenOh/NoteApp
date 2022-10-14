@@ -12,7 +12,7 @@ import com.example.noteapp.server.Server
 class NoteRepositoryImpl(private val db: Database, private val modelMapper: NoteModelMapper, private val dtoMapper: NoteDTOMapper): NoteRepository {
 
     override fun getAllNotes(): LiveData<List<NoteModel>> =
-        Transformations.map(db.noteDao().getAllNotes()) { modelMapper.listMapFromEntity(it) }
+        Transformations.map(db.noteDao().getAllNotes()) { modelMapper.mapListFromEntity(it) }
 
     override fun insert(noteEntity: NoteModel) {
         db.noteDao().insert(modelMapper.mapToEntity(noteEntity))
@@ -26,10 +26,9 @@ class NoteRepositoryImpl(private val db: Database, private val modelMapper: Note
         db.noteDao().delete(modelMapper.mapToEntity(noteEntity))
     }
 
-
-
-    override fun getManagerList(): List<NoteEntity> {
-        return dtoMapper.listMapToEntity(Server.getManagerList())
+    //update db from server
+    override fun getManagerList(): List<NoteModel> {
+        return modelMapper.mapListFromEntity(dtoMapper.mapListToEntity(Server.getManagerList()))
     }
 
 }

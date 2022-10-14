@@ -39,6 +39,7 @@ class HomeFragment : Fragment() {
         viewModel.getAllNotes().observe(viewLifecycleOwner) { notes ->
             adapter.setAdapterNotes(notes)
             binding.homeRecycler.isVisible = adapter.notes.isNotEmpty()
+            binding.noInfo.isVisible = adapter.notes.isEmpty()
         }
     }
 
