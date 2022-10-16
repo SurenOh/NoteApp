@@ -1,6 +1,5 @@
 package com.example.noteapp.database.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.noteapp.database.entity.NoteEntity
 
@@ -9,6 +8,9 @@ interface NoteDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(item: NoteEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertList(item: List<NoteEntity>)
 
     @Delete
     fun delete(item: NoteEntity)

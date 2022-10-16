@@ -1,7 +1,7 @@
 package com.example.noteapp.repository
 
 import com.example.noteapp.database.Database
-import com.example.noteapp.mappers.NoteDTOMapper
+import com.example.noteapp.mappers.NoteDtoMapper
 import com.example.noteapp.mappers.NoteModelMapper
 import com.example.noteapp.models.NoteModel
 import com.example.noteapp.server.Server
@@ -9,10 +9,10 @@ import com.example.noteapp.server.Server
 class NoteRepositoryImpl(
     private val db: Database,
     private val modelMapper: NoteModelMapper,
-    private val dtoMapper: NoteDTOMapper
+    private val dtoMapper: NoteDtoMapper
 ) : NoteRepository {
 
-    override fun getAllNotes(): List<NoteModel> =
+    override fun getAllNotes() =
         modelMapper.mapFromEntity(db.noteDao().getAllNotes())
 
     override fun insert(noteEntity: NoteModel) {
@@ -28,7 +28,8 @@ class NoteRepositoryImpl(
     }
 
     // update db from server
-    override fun getManagerList(): List<NoteModel> {
-        return modelMapper.mapFromEntity(dtoMapper.mapToEntity(Server.getManagerList()))
+    override fun getNotesFromServer(): List<NoteModel> {
+        db.noteDao().insertList(dtoMapper.mapToEntity(Server.getNotesList()))
+        return modelMapper.mapFromEntity(db.noteDao().getAllNotes())
     }
 }

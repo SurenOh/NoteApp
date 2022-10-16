@@ -5,4 +5,6 @@
     <string name="save">Сохранить</string>
     <string name="no_info">Нет данных</string>
     <string name="no_connection">Нет интернета</string>
+    <string name="new_note">Новая заметка</string>
+    <string name="try_again">Повторить попытку</string>
 </resources>

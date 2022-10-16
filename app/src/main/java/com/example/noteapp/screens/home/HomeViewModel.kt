@@ -5,21 +5,68 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.noteapp.models.NoteModel
 import com.example.noteapp.repository.NoteRepository
+import com.example.noteapp.util.connection.NetworkHelper
+import com.example.noteapp.util.preferences.AppPreferences
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
 
 class HomeViewModel(private val noteRepository: NoteRepository) : ViewModel() {
-    private val DEFAULT_TITLE = "Новая заметка"
     val notes = MutableLiveData<List<NoteModel>>()
+    val progress = MutableLiveData<Boolean>()
+    val progressBar = MutableLiveData<Int>()
 
-    fun getAllNotes() { viewModelScope.launch(Dispatchers.IO) { notes.value = noteRepository.getAllNotes() } }
+    fun getNotesFromServer(isFirstAction: Boolean) {
+        if (NetworkHelper.checkNetwork()) {
+            if (isFirstAction) progress.postValue(true)
+            GlobalScope.launch(Dispatchers.IO) {
+                getAllNotes()
+                delay(5000)
+                notes.postValue(noteRepository.getNotesFromServer())
+                AppPreferences.setBoolean(false)
+                if (isFirstAction) {
+                    progress.postValue(false)
+                }
+            }
+        } else {
+            getAllNotes()
+        }
+    }
 
-    fun addNewNote() {
-        noteRepository.insert(NoteModel(DEFAULT_TITLE, "", Date().time))
+    private fun getAllNotes() {
+        viewModelScope.launch(Dispatchers.IO) {
+            notes.postValue(noteRepository.getAllNotes())
+        }
+    }
+
+    fun addNewNote(title: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            noteRepository.insert(NoteModel(title, "", Date().time))
+            notes.postValue(noteRepository.getAllNotes())
+        }
     }
 
     fun deleteNote(noteModel: NoteModel) {
-        noteRepository.delete(noteModel)
+        viewModelScope.launch(Dispatchers.IO) {
+            noteRepository.delete(noteModel)
+            notes.postValue(noteRepository.getAllNotes())
+        }
+    }
+
+    fun setupProgressBar() {
+        GlobalScope.launch {
+            while (NetworkHelper.checkNetwork()) {
+                delay(50)
+                val currentProgress = progressBar.value ?: 0
+                if (currentProgress < 100) {
+                    progressBar.postValue(currentProgress + 1)
+                } else {
+                    break
+                }
+            }
+        }
+        progressBar.value = 1
     }
 }

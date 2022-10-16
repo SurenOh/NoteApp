@@ -6,6 +6,6 @@ object DateUtil {
 
     val defaultDateFormat = SimpleDateFormat("dd.MM.yyyy")
 
-    // it's not user friendly use hh:mm
+    // It's not user friendly to use this time format( hh:mm ), you can't distinguish 08:00 from 20:00, so I use HH:mm
     val todayDateFormat = SimpleDateFormat("HH:mm")
 }

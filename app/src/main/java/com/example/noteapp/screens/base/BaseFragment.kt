@@ -18,4 +18,12 @@ open class BaseFragment : Fragment() {
     fun hideKeyboard() {
         (requireActivity() as? MainActivity)?.hideKeyboard()
     }
+
+    fun setProgress(isLoading: Boolean) {
+        (requireActivity() as? MainActivity)?.setProgress(isLoading)
+    }
+
+    fun setProgressBar(progress: Int) {
+        (requireActivity() as? MainActivity)?.setProgressBar(progress)
+    }
 }

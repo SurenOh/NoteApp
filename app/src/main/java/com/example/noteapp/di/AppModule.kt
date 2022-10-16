@@ -2,9 +2,8 @@ package com.example.noteapp.di
 
 import androidx.room.Room
 import com.example.noteapp.App
-import com.example.noteapp.MainViewModel
 import com.example.noteapp.database.Database
-import com.example.noteapp.mappers.NoteDTOMapper
+import com.example.noteapp.mappers.NoteDtoMapper
 import com.example.noteapp.mappers.NoteModelMapper
 import com.example.noteapp.repository.NoteRepository
 import com.example.noteapp.repository.NoteRepositoryImpl
@@ -24,14 +23,12 @@ val applicationModule = module {
             androidContext(),
             Database::class.java,
             Database.DB_NAME
-        )
-            .allowMainThreadQueries()
-            .build()
+        ).build()
     }
 
     // Mappers
     single { NoteModelMapper() }
-    single { NoteDTOMapper() }
+    single { NoteDtoMapper() }
 
     // Repositories
     single<NoteRepository> { NoteRepositoryImpl(get(), get(), get()) }
@@ -39,5 +36,4 @@ val applicationModule = module {
     // ViewModels
     viewModel { HomeViewModel(get()) }
     viewModel { DetailViewModel(get()) }
-    viewModel { MainViewModel(get()) }
 }

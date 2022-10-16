@@ -4,41 +4,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.home.HomeFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/light_gray"
+    tools:context=".screens.home.HomeFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/homeRecycler"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="vertical"
+        android:id="@+id/home_recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="10dp"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:backgroundTint="@color/teal_200"
-        android:src="@android:drawable/ic_menu_add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"/>
 
     <TextView
-        android:id="@+id/noInfo"
+        android:id="@+id/no_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/no_info"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/btn_try_again"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:backgroundTint="@color/teal_200"
+        android:text="@string/try_again"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/no_info" />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/teal_200"
+            android:clickable="true"
+            android:src="@android:drawable/ic_menu_add" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+

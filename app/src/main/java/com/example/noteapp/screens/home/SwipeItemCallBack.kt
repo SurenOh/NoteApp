@@ -1,9 +1,9 @@
-package com.example.noteapp.util.swipe
+package com.example.noteapp.screens.home
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class SwipeToDelete: ItemTouchHelper.Callback() {
+abstract class SwipeItemCallBack : ItemTouchHelper.Callback() {
     override fun getMovementFlags(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder

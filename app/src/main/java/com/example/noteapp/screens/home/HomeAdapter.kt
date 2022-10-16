@@ -14,7 +14,7 @@ import java.util.*
 
 typealias OnNoteClickCallBack = (NoteModel) -> Unit
 
-class HomeAdapter(var notes: List<NoteModel>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HomeAdapter(var notes: MutableList<NoteModel>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
     private lateinit var binding: NoteItemBinding
 
     var onClickNote: OnNoteClickCallBack? = null
@@ -31,17 +31,22 @@ class HomeAdapter(var notes: List<NoteModel>) : RecyclerView.Adapter<HomeAdapter
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setAdapterNotes(newNotes: List<NoteModel>) {
+    fun setAdapterNotes(newNotes: MutableList<NoteModel>) {
         notes = newNotes
         notifyDataSetChanged()
+    }
+
+    fun deleteNote(note: NoteModel, position: Int) {
+        notes.remove(note)
+        notifyItemRemoved(position)
     }
 
     inner class ViewHolder(private var binding: NoteItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(noteModel: NoteModel) = with(binding) {
-            title.text = noteModel.title
-            description.text = noteModel.description
+            tvTitle.text = noteModel.title
+            tvDescription.text = noteModel.description
             changeDate.text = getFormat(noteModel).format(Date(noteModel.changeDate))
             itemView.setOnClickListener { onClickNote?.invoke(noteModel) }
         }

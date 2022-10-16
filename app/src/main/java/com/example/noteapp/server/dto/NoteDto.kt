@@ -1,6 +1,6 @@
 package com.example.noteapp.server.dto
 
-data class NoteDTO(
+data class NoteDto(
     var title: String,
     var description: String,
     var changeDate: Long,

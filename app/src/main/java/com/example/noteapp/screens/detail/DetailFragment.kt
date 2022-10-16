@@ -19,23 +19,21 @@ class DetailFragment : BaseFragment() {
     private val args: DetailFragmentArgs by navArgs()
     private lateinit var note: NoteModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        note = args.note
-        if (_binding != null) {
-            return binding.root
-        }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        if (_binding != null) return binding.root
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
 
+        binding.imageButton.setOnClickListener {
+            popBackStack()
+            hideKeyboard()
+        }
         setupViews()
         setupMenu()
         return binding.root
     }
 
     private fun setupViews() = with(binding) {
+        note = args.note
         etTitle.setText(note.title)
         etDescription.setText(note.description)
     }
@@ -52,7 +50,11 @@ class DetailFragment : BaseFragment() {
 
                 override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                     if (menuItem.itemId == R.id.saveButton) {
-                        viewModel.updateNote(note, binding.etTitle.text.toString(), binding.etDescription.text.toString())
+                        viewModel.updateNote(
+                            note,
+                            binding.etTitle.text.toString(),
+                            binding.etDescription.text.toString()
+                        )
                         hideKeyboard()
                         binding.etDescription.clearFocus()
                         binding.etTitle.clearFocus()

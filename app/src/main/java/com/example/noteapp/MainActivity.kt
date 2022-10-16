@@ -4,22 +4,19 @@ import android.app.Activity
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.example.noteapp.databinding.ActivityMainBinding
-import com.google.android.material.snackbar.Snackbar
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.example.noteapp.util.connection.NetworkHelper
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    private val viewModel: MainViewModel by viewModel()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
     }
 
@@ -28,16 +25,24 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    private fun showNoConnection(view: View) {
-        val snackBar = Snackbar.make(view, "Нет интернета", Snackbar.LENGTH_LONG)
-        snackBar.setBackgroundTint(ContextCompat.getColor(this, R.color.teal_200))
-        snackBar.show()
-    }
-
     fun hideKeyboard() {
         val imm: InputMethodManager = this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         var view: View? = this.currentFocus
         if (view == null) view = View(this)
         imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    fun setProgress(isLoading: Boolean) {
+        if (isLoading) binding.viewLoad.showView()
+        else binding.viewLoad.hideView()
+    }
+
+    fun setProgressBar(progress: Int) {
+        if (progress < 100 && NetworkHelper.checkNetwork()) {
+            binding.progressBar.visibility = VISIBLE
+            binding.progressBar.progress = progress
+        } else {
+            binding.progressBar.visibility = GONE
+        }
     }
 }

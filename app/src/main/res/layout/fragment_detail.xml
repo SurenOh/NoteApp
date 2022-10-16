@@ -1,39 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".screens.detail.DetailFragment">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    android:orientation="horizontal"
+    android:backgroundTint="@color/light_gray"
+    android:id="@+id/linear_layout">
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="2dp"/>
 
     <EditText
         android:id="@+id/et_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="Title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="10dp"
+        android:background="@android:color/transparent"
         android:gravity="center"
         android:textColor="@color/black"
-        android:background="@android:color/transparent"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageButton"
+        app:layout_constraintTop_toTopOf="@+id/imageButton"
+        tools:text="Title" />
+</LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear_layout">
 
         <EditText
             android:id="@+id/et_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:gravity="start"
             android:background="@android:color/transparent"
-            tools:text="Description"
-            android:textColor="@color/black" />
+            android:gravity="start"
+            android:textColor="@color/black"
+            tools:text="Description" />
     </ScrollView>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
